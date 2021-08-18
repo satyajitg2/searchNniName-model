@@ -1,0 +1,36 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp200409="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsp200607="http://www.w3.org/2006/07/ws-policy" xmlns:ns0="http://asic.gov.au/wsdl/nni/search/external/v3" targetNamespace="http://asic.gov.au/wsdl/nni/search/external/v3">
+  <wsdl:types xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:schema>
+      <xsd:import schemaLocation="ExternalSearchNniNamePortV3.xsd2.xsd" namespace="uri:v3.external.search.nni.name.asic.gov.au"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="externalSearchNniNameReply">
+    <wsdl:part xmlns:xsns="uri:v3.external.search.nni.name.asic.gov.au" name="reply" element="xsns:reply"/>
+  </wsdl:message>
+  <wsdl:message name="externalSearchNniNameRequest">
+    <wsdl:part xmlns:xsns="uri:v3.external.search.nni.name.asic.gov.au" name="request" element="xsns:request"/>
+  </wsdl:message>
+  <wsdl:portType name="ExternalSearchNniName">
+    <wsdl:operation name="externalSearchNniName">
+      <wsdl:input name="request" message="ns0:externalSearchNniNameRequest"/>
+      <wsdl:output name="reply" message="ns0:externalSearchNniNameReply"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="externalSearchNniNameSoapBinding" type="ns0:ExternalSearchNniName">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="externalSearchNniName">
+      <soap12:operation soapAction="externalSearchNniName" soapActionRequired="false" style="document"/>
+      <wsdl:input name="request">
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="reply">
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ExternalSearchNniNameServiceV3">
+    <wsdl:port name="ExternalSearchNniNamePort" binding="ns0:externalSearchNniNameSoapBinding">
+      <soap12:address location="https://10.240.1.4:14000/gateway/ExternalSearchNniNamePortV3"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

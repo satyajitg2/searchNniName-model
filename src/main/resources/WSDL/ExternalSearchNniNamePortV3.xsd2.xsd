@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="uri:v3.external.search.nni.name.asic.gov.au" elementFormDefault="qualified" xmlns:types="uri:types.asic.gov.au" xmlns:nni.types="uri:nni.types.asic.gov.au" xmlns:external.search.nni.name="uri:v3.external.search.nni.name.asic.gov.au" xmlns:abn.types="uri:abn.types.asic.gov.au" xmlns:bn.types="uri:bn.types.asic.gov.au" xmlns:business.document.header.types="uri:business.document.header.types.asic.gov.au" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+  <xs:import namespace="uri:types.asic.gov.au" schemaLocation="ExternalSearchNniNamePortV3.xsd3.xsd"/>
+  <xs:import namespace="uri:bn.types.asic.gov.au" schemaLocation="ExternalSearchNniNamePortV3.xsd4.xsd"/>
+  <xs:import namespace="uri:abn.types.asic.gov.au" schemaLocation="ExternalSearchNniNamePortV3.xsd5.xsd"/>
+  <xs:import namespace="uri:business.document.header.types.asic.gov.au" schemaLocation="ExternalSearchNniNamePortV3.xsd6.xsd"/>
+  <xs:import namespace="uri:nni.types.asic.gov.au" schemaLocation="ExternalSearchNniNamePortV3.xsd7.xsd"/>
+  <xs:import namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" schemaLocation="ExternalSearchNniNamePortV3.xsd8.xsd"/>
+  <xs:element name="request" type="external.search.nni.name:searchNniNameRequestType"/>
+  <xs:element name="reply" type="external.search.nni.name:searchNniNameReplyType"/>
+  <xs:complexType name="searchNniNameRequestType">
+    <xs:sequence>
+      <xs:element ref="business.document.header.types:businessDocumentHeader"/>
+      <xs:element name="businessDocumentBody" type="nni.types:searchNniRequestType"/>
+    </xs:sequence>
+    <xs:attribute ref="wsu:Id"/>
+  </xs:complexType>
+  <xs:complexType name="searchNniNameReplyType">
+    <xs:sequence>
+      <xs:element ref="business.document.header.types:businessDocumentHeader"/>
+      <xs:element name="businessDocumentBody" type="external.search.nni.name:replyDataType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="requestDataType">
+    <xs:sequence>
+      <xs:element name="searchType">
+        <xs:annotation>
+          <xs:documentation>E Exact
+S Standard</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:length value="1"/>
+            <xs:enumeration value="E"/>
+            <xs:enumeration value="S"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="searchScope">
+        <xs:annotation>
+          <xs:documentation>1 to search for names valid for purchase of extract
+2 to search for names (including former names) of currently registered organisations and reserved names considered for names determination
+3 same as for 2 but including deregistered organisations
+4 to search for companies(APUB APTY FNOS) (not former names) and Business Names 
+A to search for all entities
+B to search for Business and State Names 
+C to search for Registered and Deregistered companies, Trusts and NRETs 
+E to search for Registered companies and NRETs
+G to search for Registered companies, Name Reservations, Trusts, NRETs and Business Names 
+H to search for Registered and Deregistered companies, Name Reservations, Trusts, NRETs and Business Names 
+I to search for NONCs, Registered companies, Trusts and NRETs
+J to search for Registered companies and Name Reservations
+L to search for NONCs and Business Names
+M to search for NONCs and Name Reservations
+N to search for NONCs (Non Company Names)
+O to search for NONCs and Registered companies
+T to search for Trusts and Registered Schemes
+R to search for Registered companies
+S to search for Registered companies, Name Reservations, NRETs and Business Names
+P to search for Current Name Reservations
+X to search for Registered companies, Name Reservations and Business Names</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:length value="1"/>
+            <xs:enumeration value="1"/>
+            <xs:enumeration value="2"/>
+            <xs:enumeration value="3"/>
+            <xs:enumeration value="4"/>
+            <xs:enumeration value="A"/>
+            <xs:enumeration value="B"/>
+            <xs:enumeration value="C"/>
+            <xs:enumeration value="E"/>
+            <xs:enumeration value="G"/>
+            <xs:enumeration value="H"/>
+            <xs:enumeration value="I"/>
+            <xs:enumeration value="J"/>
+            <xs:enumeration value="L"/>
+            <xs:enumeration value="M"/>
+            <xs:enumeration value="N"/>
+            <xs:enumeration value="O"/>
+            <xs:enumeration value="P"/>
+            <xs:enumeration value="T"/>
+            <xs:enumeration value="R"/>
+            <xs:enumeration value="S"/>
+            <xs:enumeration value="P"/>
+            <xs:enumeration value="X"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="organisation">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="name" type="types:nniNameType"/>
+            <xs:element name="type" type="nni.types:nniTypeCodeType" minOccurs="0"/>
+            <xs:element name="status" type="nni.types:searchStatusType" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="maxResult" type="xs:positiveInteger" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="replyDataType">
+    <xs:sequence>
+      <xs:element name="organisation" type="nni.types:nameIndexAcncEntityType" maxOccurs="99"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

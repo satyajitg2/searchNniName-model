@@ -21,6 +21,7 @@ public class NniNameSearchUriParams extends TechArchHeader {
     @Pattern(regexp = "^[123ABCEGHIJLMNOPRSTX]$", message="Invalid scope defined")
     private String scope;
 
+    @Pattern(regexp = "^[A-Z0-9 .,?!(){}:;'\"@#$%*=&|\\-_\\\\/]*$", message = "organisation name invalid'")
     private String orgName;
     private NniTypeCodeType orgType;
     private SearchStatusType orgStatus;

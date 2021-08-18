@@ -13,5 +13,5 @@ public class TechArchHeader {
     @NotNull
     private String SessionId;
     @NotNull
-    private   String TransactionId;
+    private  String TransactionId;
 }

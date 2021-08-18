@@ -9,6 +9,9 @@ import com.fasterxml.jackson.module.jsonSchema.customProperties.HyperSchemaFacto
 import com.fasterxml.jackson.module.jsonSchema.factories.SchemaFactoryWrapper;
 import com.fasterxml.jackson.module.jsonSchema.factories.VisitorContext;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 import static java.lang.System.err;
 import static java.lang.System.out;
 
@@ -21,7 +24,7 @@ public class App
     public static void main( String[] args )
     {
         writeToStandardOutputWithModuleJsonSchema(
-                "uri.v3_external_search_nni_name_asic_gov.SearchNniNameRequestType");
+                "uri.v3_external_search_nni_name_asic_gov.SearchNniNameReplyType");
         out.println( "Complete" );
     }
 
@@ -42,7 +45,9 @@ public class App
         {
             mapper.acceptJsonFormatVisitor(mapper.constructType(Class.forName(fullyQualifiedClassName)), visitor);
             final com.fasterxml.jackson.module.jsonSchema.JsonSchema jsonSchema = visitor.finalSchema();
-            out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonSchema));
+            FileWriter fw = new FileWriter("out/SearchNniNameReplyType.json.schema");
+            fw.write(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonSchema));
+            out.println("Done");
         }
         catch (ClassNotFoundException cnfEx)
         {
@@ -55,6 +60,8 @@ public class App
         catch (JsonProcessingException jsonEx)
         {
             err.println("Unable to process JSON: " + jsonEx);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

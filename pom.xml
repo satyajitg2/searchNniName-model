@@ -53,6 +53,7 @@
                               <wsdl>${basedir}/src/main/resources/wsdl/ExternalSearchNniNamePortV3_1.wsdl</wsdl>
                               <extraargs>
                                   <extraarg>-xjc-verbose</extraarg>
+                                  <extraarg>-client</extraarg>
                               </extraargs>
                           </wsdlOption>
                       </wsdlOptions>

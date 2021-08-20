@@ -1,12 +1,13 @@
 package au.gov.ato.wsdl;
 
 import java.math.BigInteger;
-import java.net.URL;
 import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.handler.Handler;
 
 import org.junit.Test;
 
@@ -24,6 +25,7 @@ public class LiveService {
    @Test
    public void testLiveConnection() {
       // https://download.asic.gov.au/media/4999931/message-implementation-guide-for-infobrokers-v15.pdf
+      // String endpointUrl = "http://localhost:8080";  // Can use for tcpdump
       String endpointUrl = "https://www.gateway.uat.asic.gov.au/gateway/ExternalSearchNniNamePortV3";
       String username = "abrs2asic@ato.gov.au";
       String password = "T0d@y1234";
@@ -42,6 +44,10 @@ public class LiveService {
       ((BindingProvider) web).getRequestContext().put(BindingProvider.USERNAME_PROPERTY, username);
       ((BindingProvider) web).getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, password);
       ((BindingProvider) web).getRequestContext().put(BindingProvider.SESSION_MAINTAIN_PROPERTY, true);
+      List<Handler> handlerChain  = ((BindingProvider) web).getBinding().getHandlerChain();
+      handlerChain.add(new LogHandler());
+      ((BindingProvider) web).getBinding().setHandlerChain(handlerChain);
+
 
       SearchNniNameRequestType search = new SearchNniNameRequestType();
       
@@ -69,7 +75,6 @@ public class LiveService {
       System.out.println("Reference: " + response.getBusinessDocumentHeader().getMessageReferenceNumber());
       for (NameIndexAcncEntityType sNam : response.getBusinessDocumentBody().getOrganisation()) {
          System.out.println("Jurisdiction:" + sNam.getJurisdiction());
-         System.out.println("Inc @:" + sNam.getPlaceOfIncorporation());
          System.out.println("Name:" + sNam.getName().getName());
       }
    }

@@ -24,6 +24,9 @@ public class LiveService {
 
    @Test
    public void testLiveConnection() {
+      // JAX-B Enum Mappings
+      // https://javaee.github.io/jaxb-v2/doc/user-guide/ch03.html
+
       // https://download.asic.gov.au/media/4999931/message-implementation-guide-for-infobrokers-v15.pdf
       // String endpointUrl = "http://localhost:8080";  // Can use for tcpdump
       String endpointUrl = "https://www.gateway.uat.asic.gov.au/gateway/ExternalSearchNniNamePortV3";

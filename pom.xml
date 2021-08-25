@@ -35,8 +35,6 @@
           <artifactId>lombok</artifactId>
           <version>1.18.20</version>
       </dependency>
-
-
   </dependencies>
 
   <build>
@@ -56,8 +54,6 @@
                               <extraargs>
                                   <extraarg>-xjc-verbose</extraarg>
                                   <extraarg>-client</extraarg>
-                                  <extraarg>-b</extraarg>
-                                  <extraarg>${basedir}/jaxws-bindings.xml</extraarg>
                               </extraargs>
                           </wsdlOption>
                       </wsdlOptions>

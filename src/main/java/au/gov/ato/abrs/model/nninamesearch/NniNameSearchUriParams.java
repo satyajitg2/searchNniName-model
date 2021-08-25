@@ -3,11 +3,10 @@ package au.gov.ato.abrs.model.nninamesearch;
 import au.gov.ato.abrs.model.TechArchHeader;
 import lombok.Setter;
 import lombok.Getter;
-//import uri.nni_types_asic_gov.NniTypeCodeType;
-//import uri.nni_types_asic_gov.SearchStatusType;
+import uri.nni_types_asic_gov.NniTypeCodeType;
+import uri.nni_types_asic_gov.SearchStatusType;
 
 import javax.validation.constraints.Max;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 /***
@@ -19,22 +18,18 @@ public class NniNameSearchUriParams extends TechArchHeader {
 
     @Pattern(regexp = "^[ES]$", message = "type must be either 'E' or 'S' defaults to 'E'")
     private String type = "E";
-
-    @NotNull(message="No scope defined")
-    @Pattern(regexp = "^[123ABCEGHIJLMNOPRSTX]$", message = "Invalid scope defined")
+    @Pattern(regexp = "^[123ABCEGHIJLMNOPRSTX]$", message="Invalid scope defined")
     private String scope;
 
-    @NotNull(message="No organisation name defined")
-    @Pattern(regexp = "^[a-zA-Z0-9 .,?!(){}:;'\"@#$%*=&|\\-_\\\\/]*$", message = "Organisation name invalid'")
+    @Pattern(regexp = "^[a-zA-Z0-9 .,?!(){}:;'\"@#$%*=&|\\-_\\\\/]*$", message = "organisation name invalid'")
     private String orgName;
 
-    @Pattern(regexp = "^(APTY|APUB|ASSN|BUSN|CHAR|COMP|COOP|FNOS|LTDP|MISM|NONC|NRET|RACN|REBD|RSVN|SOLS|TRST)$")
-    private String orgType;
-
-    private String orgStatus;
+    private NniTypeCodeType orgType;
+    private SearchStatusType orgStatus;
 
     @Max(value = 99, message = "A maximum of 99 records can only be returned.")
-    private int maxResults;
+    private   int maxResults;
+
 
     public String getType() {
         return this.type;
@@ -53,26 +48,26 @@ public class NniNameSearchUriParams extends TechArchHeader {
     }
 
     public String getOrgName() {
-        return null == this.orgName ? null : this.orgName.toUpperCase();
+        return this.orgName.toUpperCase();
     }
 
     public void setOrgName(String orgName) {
         this.orgName = orgName;
     }
 
-    public String getOrgType() {
+    public NniTypeCodeType getOrgType() {
         return this.orgType;
     }
 
-    public void setOrgType(String orgType) {
+    public void setOrgType(NniTypeCodeType orgType) {
         this.orgType = orgType;
     }
 
-    public String getOrgStatus() {
+    public SearchStatusType getOrgStatus() {
         return this.orgStatus;
     }
 
-    public void setOrgStatus(String orgStatus) {
+    public void setOrgStatus(SearchStatusType orgStatus) {
         this.orgStatus = orgStatus;
     }
 

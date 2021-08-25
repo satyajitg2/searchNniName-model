@@ -8,10 +8,10 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 public class TechArchHeader {
-    //@NotNull
+    @NotNull
     private String UserIdentity;
-    //@NotNull
+    @NotNull
     private String SessionId;
-    //@NotNull
+    @NotNull
     private  String TransactionId;
 }

@@ -28,13 +28,13 @@ public class NniNameSearchUriParams extends TechArchHeader {
     @Pattern(regexp = "^[a-zA-Z0-9 .,?!(){}:;'\"@#$%*=&|\\-_\\\\/]*$", message = "Organisation name invalid'")
     private String orgName;
 
-    @Pattern(regexp = "^(APTY|APUB|ASSN|BUSN|CHAR|COMP|COOP|FNOS|LTDP|MISM|NONC|NRET|RACN|REBD|RSVN|SOLS|TRST)$")
+    @Pattern(regexp = "^(APTY|APUB|ASSN|BUSN|CHAR|COMP|COOP|FNOS|LTDP|MISM|NONC|NRET|RACN|REBD|RSVN|SOLS|TRST)$", message="Organisation type invalid")
     private String orgType;
 
     private String orgStatus;
 
     @Max(value = 99, message = "A maximum of 99 records can only be returned.")
-    private int maxResults;
+    private int maxResults = 99;
 
     public String getType() {
         return this.type;

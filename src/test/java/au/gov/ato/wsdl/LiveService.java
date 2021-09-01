@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import au.gov.asic.wsdl.nni.search.external.v3.ExternalSearchNniName;
 import au.gov.asic.wsdl.nni.search.external.v3.ExternalSearchNniNameServiceV3;
+import au.gov.ato.abrs.model.nninamesearch.NniNameSearchUriParams;
 import uri.business_document_header_types_asic_gov.BusinessDocumentHeaderType;
 import uri.nni_types_asic_gov.NameIndexAcncEntityType;
 import uri.nni_types_asic_gov.SearchNniRequestType;

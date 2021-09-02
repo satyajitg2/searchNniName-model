@@ -29,12 +29,11 @@ public class LiveService {
       // https://javaee.github.io/jaxb-v2/doc/user-guide/ch03.html
 
       // https://download.asic.gov.au/media/4999931/message-implementation-guide-for-infobrokers-v15.pdf
-      // String endpointUrl = "http://localhost:8080";  // Can use for tcpdump
+      // String endpointUrl = "http://localhost:8080"; // Can use for tcpdump
       String endpointUrl = "https://www.gateway.uat.asic.gov.au/gateway/ExternalSearchNniNamePortV3";
       String username = "abrs2asic@ato.gov.au";
       String password = "T0d@y1234";
       ExternalSearchNniNameServiceV3 service = new ExternalSearchNniNameServiceV3();
-
 
       // Available ports
       Iterator<QName> it = service.getPorts();
@@ -44,24 +43,23 @@ public class LiveService {
       }
 
       ExternalSearchNniName web = service.getPort(ExternalSearchNniName.class);
-      ((BindingProvider)web).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointUrl);
+      ((BindingProvider) web).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointUrl);
       ((BindingProvider) web).getRequestContext().put(BindingProvider.USERNAME_PROPERTY, username);
       ((BindingProvider) web).getRequestContext().put(BindingProvider.PASSWORD_PROPERTY, password);
       ((BindingProvider) web).getRequestContext().put(BindingProvider.SESSION_MAINTAIN_PROPERTY, true);
-      List<Handler> handlerChain  = ((BindingProvider) web).getBinding().getHandlerChain();
+      List<Handler> handlerChain = ((BindingProvider) web).getBinding().getHandlerChain();
       handlerChain.add(new LogHandler());
       ((BindingProvider) web).getBinding().setHandlerChain(handlerChain);
 
-
       SearchNniNameRequestType search = new SearchNniNameRequestType();
-      
+
       BusinessDocumentHeaderType headerType = new BusinessDocumentHeaderType();
       headerType.setSenderId("nniName@somewhere.com");
-      //headerType.setSenderType("REGA");
+      // headerType.setSenderType("REGA");
       headerType.setSenderType("INFO");
       headerType.setMessageType("searchNniName");
       headerType.setMessageVersion(3);
-      headerType.setMessageReferenceNumber(UUID.randomUUID().toString());      
+      headerType.setMessageReferenceNumber(UUID.randomUUID().toString());
       search.setBusinessDocumentHeader(headerType);
 
       SearchNniRequestType.Organisation org = new SearchNniRequestType.Organisation();
@@ -80,6 +78,13 @@ public class LiveService {
       for (NameIndexAcncEntityType sNam : response.getBusinessDocumentBody().getOrganisation()) {
          System.out.println("Jurisdiction:" + sNam.getJurisdiction());
          System.out.println("Name:" + sNam.getName().getName());
+      }
+
+      // Some example gets
+      if (!response.getBusinessDocumentBody().getOrganisation().isEmpty()) {
+         response.getBusinessDocumentBody().getOrganisation().get(0).getPreviousStateTerritory();
+         response.getBusinessDocumentBody().getOrganisation().get(0).getIncorporationState();
+         response.getBusinessDocumentBody().getOrganisation().get(0).getIdentifier().getNumberHeading();
       }
    }
 }
